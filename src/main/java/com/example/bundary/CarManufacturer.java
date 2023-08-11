@@ -4,13 +4,15 @@ import com.example.controll.CarFactory;
 import com.example.controll.CarRepository;
 import com.example.entity.Car;
 import com.example.entity.CarCreated;
+import com.example.entity.EngineType;
 import com.example.entity.Specification;
 import jakarta.ejb.Stateless;
-import jakarta.enterprise.event.Event;
+
 import jakarta.inject.Inject;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-
+import javax.enterprise.event.Event;
 @Stateless
 public class CarManufacturer {
 
@@ -21,15 +23,20 @@ public class CarManufacturer {
     @Inject
     Event<CarCreated> createdCar;
 
-    public Car manufacturer(Specification specification) {
+    public Car manufactureCar(Specification specification) {
         Car car = carFactory.createCar(specification);
         carRepository.store(car);
         createdCar.fire(new CarCreated(car.getIdentifier()));
         return car;
     }
 
-    public List<Car> retrieveCars(){
+    public List<Car> retrieveCars(@NotNull EngineType engineType){
        return carRepository.loadCars();
     }
 
+    public Car retrieveCar(String identifier) {
+        Car car = new Car();
+        car.setIdentifier(identifier);
+        return car;
+    }
 }

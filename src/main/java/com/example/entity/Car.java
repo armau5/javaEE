@@ -1,9 +1,13 @@
 package com.example.entity;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+
 public class Car {
 
+    @JsonbProperty
     private String identifier;
     private Color color;
+    @JsonbProperty("engine")
     private EngineType engineType;
 
 

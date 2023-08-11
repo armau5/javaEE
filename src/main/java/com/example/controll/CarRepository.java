@@ -10,9 +10,10 @@ import static java.util.Arrays.asList;
 
 public class CarRepository {
 
+
     public void store(Car car) {
-
-
+        // dummy error on creation
+        System.out.println("persisted car = " + car);
     }
 
     public List<Car> loadCars() {
@@ -31,4 +32,5 @@ public class CarRepository {
         car.setEngineType(engineType);
         return car;
     }
+
 }
